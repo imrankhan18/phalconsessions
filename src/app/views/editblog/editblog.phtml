@@ -1,0 +1,24 @@
+<?php echo $this->tag->form("index/editblog/".$blogid);
+// print_r($userid);
+
+?>
+
+
+<h2>Edit Blog Details</h2>
+    <p>
+        <label for="name"><strong>Blog Name:</strong></label>
+        <?php echo $this->tag->textField('blogname'); ?> 
+        <label for="type"><strong>Blog Type:</strong></label>
+        <?php echo $this->tag->textField('blogtype'); ?>
+        <label for="blog"><strong> Blog:</strong></label>
+        <?php echo $this->tag->textArea('fullblog'); ?>
+    </p>
+    <p>
+       
+    </p>
+
+    <p>
+        <?php echo $this->tag->submitButton(['class' => 'btn btn-dark', 'Update']); ?>
+    </p>
+
+</form>
