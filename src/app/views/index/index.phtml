@@ -22,10 +22,16 @@ echo $this->tag->linkTo([
     echo $this->tag->linkTo([
         'index/logout',
         'Logout', 'class' => 'btn btn-danger' ]);
-    if ($users->count() > 0) {
-        ?>
+if ($this->cookies->has('remember-me')) { 
+    //  print_r($this->cookies->get('remember-me')->getValue());
+   
+    if ($users->count() != 0  ) {
+       
+       ?>
       
-        <table class="table table-bordered table-hover">
+        
+      
+        <table class="table table-bordered table-hover" >
             <thead class="thead-light">
             <tr>
                 <th>#</th>
@@ -61,3 +67,4 @@ echo $this->tag->linkTo([
         </table>
         <?php
     }
+}

@@ -66,7 +66,7 @@
     
     <div class="navbar-nav">
       <div class="nav-item text-nowrap">
-        <a href='/dashboard/logout'><button value="yes" name="logout" class="nav-link px-3 text-white bg-dark">Logout</button></a>
+        <a href='/index'><button value="yes" name="logout" class="nav-link px-3 text-white bg-dark">Go To Dashboard</button></a>
        
       </div>
     </div>
@@ -153,7 +153,7 @@
                             'Edit', 'class' => 'btn btn-primary' ]);?>
                     <?php echo $this->tag->linkTo([
                             'index/delete/'.$user->id,
-                            'Delete', 'class' => 'btn btn-dark' ]);?></td>
+                            'Delete', 'class' => 'btn btn-danger' ]);?></td>
 
                 </tr>
             <?php
@@ -173,7 +173,6 @@
                 <th>Email</th>
                 <th>Password</th>
                 <th>Action</th>
-                <th>Operation</th>
             </tr>
             </thead>
             <tfoot>
@@ -198,13 +197,13 @@
                     <td><?php echo $user->name; ?></td>
                     <td><?php echo $user->email; ?></td>
                     <td><?php echo $user->password; ?></td>
-                    <td><?php //echo  "<form action='/approve/approve'method='POST'><button name='authenticate' value='".$act1."-".$user->id."'>".$act."</button></form>" ?></td>
+                    <?php //echo  "<form action='/approve/approve'method='POST'><button name='authenticate' value='".$act1."-".$user->id."'>".$act."</button></form>" ?>
                     <td><?php echo $this->tag->linkTo([
                             'edit/edit/'.$user->id,
                             'Edit', 'class' => 'btn btn-primary' ]);?>
                             <?php echo $this->tag->linkTo([
                             'index/delete/'.$user->id,
-                            'Delete', 'class' => 'btn btn-dark'  ]);?></td>
+                            'Delete', 'class' => 'btn btn-danger'  ]);?></td>
 
                 </tr>
             <?php

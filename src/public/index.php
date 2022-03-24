@@ -56,6 +56,7 @@ $container->set(
 
 $application = new Application($container);
 
+//datetime
 $container->set(
     'datetime',
     function()
@@ -65,15 +66,7 @@ $container->set(
         return $date_time;
 }
 );
-$container-> set(
-    "cookies",
-    function ()
-    {
-        $cookies=new Cookies();
-        $cookies->useEncryption(false);
-        return $cookies;
-    }
-);
+//end dt
 
 $container->set(
     'db',
@@ -98,6 +91,37 @@ $container->set(
 //     },
 //     true
 // );
+
+//sessions
+$container->set(
+    'session',
+    function () {
+        $session = new Manager();
+        $files = new Stream(
+            [
+                'savePath' => '/tmp',
+            ]
+        );
+        $session->setAdapter($files);
+        $session->start();
+
+        return $session;
+    },
+    true
+);
+//end session
+
+//coookies
+$container-> set(
+    "cookies",
+    function ()
+    {
+        $cookies=new Cookies();
+        $cookies->useEncryption(false);
+        return $cookies;
+    }
+);
+//end cookies
 
 try {
     // Handle the request
@@ -124,21 +148,5 @@ try {
 //         return $session;
 //     }
 // );
-$container->set(
-    'session',
-    function () {
-        $session = new Manager();
-        $files = new Stream(
-            [
-                'savePath' => '/tmp',
-            ]
-        );
-        $session->setAdapter($files);
-        $session->start();
-
-        return $session;
-    },
-    true
-);
 
 

@@ -13,6 +13,7 @@ class LoginController extends Controller
     }
     public function registerAction()
     {
+        $userdetails = $this->request->getPost();
         $res=$this->request->getPost();
         $session = new Manager();
         $files = new Stream(
@@ -23,30 +24,46 @@ class LoginController extends Controller
         $session->setAdapter($files)->start();
         $session->set('email', $res['email']);
         $session->set('password', $res['password']);
+
+        //cookies
+if(isset($_POST['remember'])){
+    $this->cookies->set('remember-me',
+        json_encode(
+            ['email' => $userdetails['email'],
+            'password' => $userdetails['password'] 
+        ]
+    ),
+        time() +3600
+        
+    );
+    
+    $response = new Response();
+    $response->getCookies($this->cookies);
+    //     print_r($this->cookies);
+    // die();
+}
+else{
+
+}
+
+        
+ 
+        // $this->response->redirect('index');
+        // $this->cookies->get('remember-me')->getValue();
+        //cookies code end
       
 
         $result = Users::find(['conditions' => 'email = ?1 AND password =?2 AND role = ?3', 'bind' => [1 => 'ikik@gmail.com', 2 => '123', 3 => 'admin']]);
-        $resul123 = $this->request->getPost();
+        
         $_SESSION['admindetails'] = $this->getArray($result[0]);
-        //cookies
 
-    //     $this->cookies->set('remember-me',
-    //     json_encode(
-    //         ['email' => $resul123['email'],
-    //         'password' => $resul123['password'] 
-    //     ]
-    // ),
-    //     time() +3600
-    // );
-    // print_r($this->cookies->get('remember-me')->getValue());
-    // die();
-    //cookies code end
+        
 
 
-        if ($result[0]->email == $resul123['email'] && $result[0]->password == $resul123['password'] && $result[0]->role == 'admin') {
+        if ($result[0]->email == $userdetails['email'] && $result[0]->password == $userdetails['password'] && $result[0]->role == 'admin' ) {
             
             $this->response->redirect('index');
-        } elseif($resul123['email'] =='' && $resul123['password' ]=='')
+        } elseif($userdetails['email'] =='' && $userdetails['password' ]=='')
         {
             $response = new Response("Sorry, the page doesn't exist", 404, 'Not Found');
             echo "<h2>Please Fill Login Details</h2>";
